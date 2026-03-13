@@ -21,10 +21,14 @@ public class BloqueB {
 	 * los elementos que la forman (palabras, uno o más caracteres alfabéticos seguidos,
 	 * y no-palabras, todo lo que haya entre cada palabra) y almacenarlos en una lista.
 	 * Finalmente se retornará una lista de listas que contenga todas las anteriores.
+	 * 
+	 *  s -> pattern.matcher(s).results().map(r -> r.group())
 	 */
 	
-	static void ejercicio01(Stream<String> secuencia) {
-		
+	static List<List<String>> ejercicio01(Stream<String> secuencia) {
+		return secuencia
+				.map(s -> pattern.matcher(s).results().map(r -> r.group()).toList())
+				.toList();
 	}
 	
 	/*
@@ -34,7 +38,6 @@ public class BloqueB {
 	 */
 	
 	static OptionalLong ejercicio02(Stream<String> secuencia) {
-		// s -> pattern.matcher(s).results().map(r -> r.group())
 		return secuencia
 				.mapToLong(s -> pattern.matcher(s).results().map(r -> r.group()).count())
 				.max();
@@ -148,11 +151,13 @@ public class BloqueB {
 	}
 	
 	public static void main(String[] args) {
-		OptionalLong max = ejercicio02(Datos.getLineas());
-		if (max.isEmpty())
-			System.out.println("No se ha podido hallar el máximo");
-		else
-			System.out.println("Máximo = " + max.getAsLong());
+//		System.out.println(ejercicio01(Datos.getLineas()));
+//		OptionalLong max = ejercicio02(Datos.getLineas());
+//		if (max.isEmpty())
+//			System.out.println("No se ha podido hallar el máximo");
+//		else
+//			System.out.println("Máximo = " + max.getAsLong());
+		System.out.println(ejercicio03(ejercicio01(Datos.getLineas())));
 //		System.out.println(ejercicio05(Datos.getLineas()));
 		
 	}
