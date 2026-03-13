@@ -1,17 +1,22 @@
 package fp.dam.java.streams;
 
+import static java.util.stream.Collectors.averagingInt;
+
 import java.util.List;
 import java.util.Map;
+import java.util.OptionalLong;
 import java.util.Set;
-import static java.util.stream.Collectors.*;
-
-import java.util.Arrays;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 
 public class BloqueB {
 	
+	private static Pattern pattern = Pattern.compile("\\p{L}+|\\P{L}+");
+	
 	/*
+	 * EJERCICIO 1
+	 * 
 	 * Crea un método estático que acepte una secuencia de cadenas para extraer de cada una de ellas
 	 * los elementos que la forman (palabras, uno o más caracteres alfabéticos seguidos,
 	 * y no-palabras, todo lo que haya entre cada palabra) y almacenarlos en una lista.
@@ -23,15 +28,21 @@ public class BloqueB {
 	}
 	
 	/*
+	 * EJERCICIO 2
 	 * Crea un método estático que acepte una secuencia de cadenas y retorne el máximo número
 	 * de elementos contenidos en una línea.
 	 */
 	
-	static long ejercicio02(Stream<String> secuencia) {
-		return 0;
+	static OptionalLong ejercicio02(Stream<String> secuencia) {
+		// s -> pattern.matcher(s).results().map(r -> r.group())
+		return secuencia
+				.mapToLong(s -> pattern.matcher(s).results().map(r -> r.group()).count())
+				.max();
 	}
 	
 	/*
+	 * EJERCICIO 3
+	 * 
 	 * Lo mismo que en el ejercicio anterior, pero aceptando una lista como la que retorna el metodo
 	 * creado en el ejercicio 1.
 	 */
@@ -42,6 +53,8 @@ public class BloqueB {
 	
 	
 	/*
+	 * EJERCICIO 4
+	 * 
 	 * Crea un método estático que acepte una lista como la que retorna el ejercicio 1 y retorne una
 	 * lista de cadenas que contenga las palabras y no-palabras en orden de aparición.
 	 */
@@ -52,17 +65,21 @@ public class BloqueB {
 	
 	
 	/*
+	 * EJERCICIO 5
+	 * 
 	 * Crea un método estático que acepte una secuencia de cadenas y retorne una lista de cadenas
 	 * que contenga las palabras y no-palabras en orden de aparición.
 	 */
 	
 	static List<String> ejercicio05(Stream<String> secuencia) {
 		return secuencia
-				.flatMap(s -> Arrays.stream(s.split("\\p{L}+|\\P{L}+")))
+				.flatMap(s -> pattern.matcher(s).results().map(r -> r.group()))
 				.toList();
 	}
 	
 	/*
+	 * EJERCICIO 6
+	 * 
 	 * Crea un método estático que acepte una secuencia de cadenas y retorne el conjunto de palabras
 	 * que se repiten.
 	 */
@@ -73,6 +90,8 @@ public class BloqueB {
 	
 	
 	/*
+	 * EJERCICIO 7
+	 * 
 	 * Crea un método estático que acepte una secuencia de cadenas y retorne la longitud media.
 	 */
 	
@@ -81,6 +100,8 @@ public class BloqueB {
 	}
 	
 	/*
+	 * EJERCICIO 8
+	 * 
 	 * Crea un método estático que acepte una secuencia de cadenas y retorne un mapa que asocie
 	 * longitudes de palabra con el número de palabras de dicha longitud.
 	 * Solo se tendrán en cuenta las diferentes longitudes de las palabras contenidas en la secuencia.
@@ -91,6 +112,8 @@ public class BloqueB {
 	}
 	
 	/*
+	 * EJERCICIO 9
+	 * 
 	 * Crea un método estático que acepte una secuencia de cadenas y retorne el total de palabras
 	 * en la secuencia sin contar las repetidas.
 	 */
@@ -101,6 +124,8 @@ public class BloqueB {
 	
 	
 	/*
+	 * EJERCICIO 10
+	 * 
 	 * Crea un método estático que acepte una secuencia de cadenas y retorne el total de vocales
 	 * y consonantes de la secuencia.
 	 */
@@ -111,6 +136,8 @@ public class BloqueB {
 	
 	
 	/*
+	 * EJERCICIO 11
+	 * 
 	 * Crea un método estático que acepte una secuencia de cadenas y una longitud l, y retorne
 	 * todas las subcadenas longitud l de cada palabra presentes en la secuencia cuya longitud
 	 * sea mayor que l.
@@ -118,6 +145,16 @@ public class BloqueB {
 	
 	static List<String> ejercicio11(Stream<String> secuencia, int l) {
 		return null;
+	}
+	
+	public static void main(String[] args) {
+		OptionalLong max = ejercicio02(Datos.getLineas());
+		if (max.isEmpty())
+			System.out.println("No se ha podido hallar el máximo");
+		else
+			System.out.println("Máximo = " + max.getAsLong());
+//		System.out.println(ejercicio05(Datos.getLineas()));
+		
 	}
 	
 }
