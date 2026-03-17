@@ -11,6 +11,8 @@ import java.util.Set;
 import static java.util.function.Function.*;
 import java.util.regex.Pattern;
 import static java.util.stream.Collectors.*;
+
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
@@ -145,7 +147,9 @@ public class BloqueB {
 	 */
 	
 	static long ejercicio09(Stream<String> secuencia) {
-		return 0;
+		return secuencia
+				.distinct()
+				.count();
 	}
 	
 	
@@ -156,9 +160,10 @@ public class BloqueB {
 	 * y consonantes de la secuencia.
 	 */
 	
-	static Map<Boolean, Long> ejercicio10(Stream<String> secuencia) {
-		return null;
-	}
+//	static Map<Boolean, Long> ejercicio10(Stream<String> secuencia) {
+//		return secuencia
+//				.collect(Collectors.partitioningBy(s -> s.equals("a")));
+//	}
 	
 	
 	/*

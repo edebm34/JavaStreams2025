@@ -9,6 +9,8 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.function.Function;
 import static java.util.stream.Collectors.*;
+
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import static java.util.function.Function.*;
 
@@ -76,6 +78,12 @@ public class BloqueA {
 	public static void ejercicio03(Stream<String> secuencia, int longitud) {
 		if (longitud < 3)
 			throw new IllegalArgumentException();
+		List<StringBuilder> sb = new LinkedList<>();
+		secuencia.forEach(s -> sb.add(new StringBuilder(s)));
+		secuencia
+			.filter(s -> s.length() == longitud)
+			.filter(s -> s.equals(new StringBuilder(s).reverse().toString()))
+			.collect(Collectors.toList()).forEach(IO::println);
 		
 //		secuencia
 //			.filter(s -> s.length() == longitud)
